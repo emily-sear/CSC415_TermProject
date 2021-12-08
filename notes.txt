@@ -1,0 +1,40 @@
+win = winScreen(window)
+                text_surface, rect = GAME_FONT.render("X Wins!", (255, 255, 255))
+                replay_button, rect_replay = pygame.freetype.SysFont("Seaford Display", 30).render("Replay", (0, 0 ,0))
+                quit_button, rect_quit = pygame.freetype.SysFont("Seaford Display", 30).render("Quit", (0, 0 ,0))
+
+                window.blit(text_surface, (175, 250))
+                window.blit(replay_button, (125, 400))
+                window.blit(quit_button, (340, 400))
+            elif (checkWin(a) == 'O'):
+                win = winScreen(window)
+                text_surface, rect = GAME_FONT.render("O Wins!", (255, 255, 255))
+                replay_button, rect_replay = pygame.freetype.SysFont("Seaford Display", 30).render("Replay", (0, 0 ,0))
+                quit_button, rect_quit = pygame.freetype.SysFont("Seaford Display", 30).render("Quit", (0, 0 ,0))
+
+                window.blit(text_surface, (175, 250))
+                window.blit(replay_button, (125, 400))
+                window.blit(quit_button, (340, 400))
+            else:
+                win = winScreen(window)
+                text_surface, rect = GAME_FONT.render("Cats Game!", (255, 255, 255))
+                replay_button, rect_replay = pygame.freetype.SysFont("Seaford Display", 30).render("Replay", (0, 0 ,0))
+                quit_button, rect_quit = pygame.freetype.SysFont("Seaford Display", 30).render("Quit", (0, 0 ,0))
+
+                window.blit(text_surface, (150, 250))
+                window.blit(replay_button, (125, 400))
+                window.blit(quit_button, (340, 400))
+            if(win.quit_button.collidepoint(pos)):
+                run = False
+            elif(win.replay_button.collidepoint(pos)):
+                board = Board(window)
+                drawObject = 'x'
+                firstOpen = True
+                secondOpen = True
+                thirdOpen = True
+                fourthOpen = True
+                fifthOpen = True
+                sixthOpen = True 
+                seventhOpen = True
+                eighthOpen = True
+                ninthOpen = True
