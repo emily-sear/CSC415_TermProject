@@ -17,12 +17,18 @@ from State import *
 from HumanPlayer import * 
 import random
 
-pygame.init()
-window = pygame.display.set_mode((550, 550)) # dimensions of the window
-pygame.display.set_caption("Tic Tac Toe")
-GAME_FONT = pygame.freetype.SysFont("Seaford Display", 50)
 
-p1 = Player()
-p2 = HumanPlayer()
-state = State(p1, p2)
-state.play()
+if __name__ == "__main__":
+    # training
+    p1 = Player("p1")
+    p2 = Player("p2")
+
+    st = State(p1, p2)
+    print("training...")
+    st.play(2000)
+
+
+    p2 = HumanPlayer("human")
+
+    st = State(p1, p2)
+    st.play2()

@@ -1,22 +1,28 @@
-class HumanPlayer: 
-    def __init__(self):
-        self.states_value = {}
-        
-    def play(self, board):
-        possibleMoves = []
-        count = 0
-        
-        for i in range(3):
-            for j in range(3):
-                if(board[i][j] == 0):
-                    possibleMoves.append(count)
-                count += 1
-        print(possibleMoves)
-        check = True
-        while check: 
-            print("Sqaure number for your move: ")
-            rowNum = int(input())
-            for i in range(len(possibleMoves)):
-                if rowNum == possibleMoves[i]:
-                    return rowNum
-            print("Please try another move")
+import numpy as np
+import pickle
+
+BOARD_ROWS = 3
+BOARD_COLS = 3
+
+class HumanPlayer:
+    def __init__(self, name):
+        self.name = name
+
+    def chooseAction(self, positions):
+        while True:
+            row = int(input("Input your action row:"))
+            col = int(input("Input your action col:"))
+            action = (row, col)
+            if action in positions:
+                return action
+
+    # append a hash state
+    def addState(self, state):
+        pass
+
+    # at the end of game, backpropagate and update states value
+    def feedReward(self, reward):
+        pass
+
+    def reset(self):
+        pass

@@ -1,4 +1,9 @@
 
+pygame.init()
+window = pygame.display.set_mode((550, 550)) # dimensions of the window
+pygame.display.set_caption("Tic Tac Toe")
+GAME_FONT = pygame.freetype.SysFont("Seaford Display", 50)
+
 board = Board(window)
 miniBoard1 = MiniBoard(window, 25, 25)
 miniBoard2 = MiniBoard(window, 200, 25) 
