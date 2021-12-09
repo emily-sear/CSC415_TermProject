@@ -69,10 +69,7 @@ class Player:
         if len(edgesOpen) > 0:
             moveNum = rand.randint(0, len(edgesOpen) - 1)
             move = edgesOpen[moveNum]
-        return move
-            
-                
-                    
+        return move            
                 
     def isWinner(self, board):
         # 1 meaning player 1 wins 

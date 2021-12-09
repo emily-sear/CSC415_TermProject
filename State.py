@@ -5,6 +5,7 @@ class State:
         self.player1 = player1
         self.player2 = player2
         self.turn = 1
+        
     def showBoard(self):
         # p1: x  p2: o
         for i in range(0, 3):
@@ -82,10 +83,10 @@ class State:
                 check = False 
             elif(win == 2):
                 print("Cats game")
-                check = False
-            
-            
-                
+                check = False  
+     
+    def getGameBoard(self):
+        return self.board      
     
     def checkWinner(self):
         # 1 meaning player 1 wins 

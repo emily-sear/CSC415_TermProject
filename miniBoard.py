@@ -26,6 +26,9 @@ class MiniBoard:
     def getMiniGameBoard(self):
         return self.gameboard
     
+    def updateMiniGameBoard(self, gameboard):
+        self.gameboard = gameboard
+    
     def moveMiniMade(self, window, pos, drawObject):
         if self.first.collidepoint(pos) and self.gameboard[0][0] == '':
                 if drawObject == 'x':

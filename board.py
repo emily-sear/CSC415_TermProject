@@ -12,7 +12,6 @@ class Board:
         self.fourth = pygame.draw.rect(window, (255, 255, 255), (25, 200, 150, 150))
         self.fifth = pygame.draw.rect(window, (255, 255, 255), (200, 200, 150, 150))
         self.sixth = pygame.draw.rect(window, (255, 255, 255), (375, 200, 150, 150))
-
         self.seventh = pygame.draw.rect(window, (255, 255, 255), (25, 375, 150, 150))
         self.eighth = pygame.draw.rect(window, (255, 255, 255), (200, 375, 150, 150))
         self.ninth = pygame.draw.rect(window, (255, 255, 255), (375, 375, 150, 150))
