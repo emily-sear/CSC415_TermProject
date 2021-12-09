@@ -17,6 +17,10 @@ from State import *
 from HumanPlayer import * 
 import random
 
+pygame.init()
+window = pygame.display.set_mode((550, 550)) # dimensions of the window
+pygame.display.set_caption("Tic Tac Toe")
+GAME_FONT = pygame.freetype.SysFont("Seaford Display", 50)
 
 p1 = Player()
 p2 = HumanPlayer()
