@@ -15,20 +15,17 @@ from miniBoard import *
 from Player import * 
 from State import *
 from HumanPlayer import * 
+from bigBoard import *
 import random
 
 
 if __name__ == "__main__":
     # training
     p1 = Player("p1")
-    p2 = Player("p2")
-
-    st = State(p1, p2)
-    print("training...")
-    st.play(2000)
-
 
     p2 = HumanPlayer("human")
 
-    st = State(p1, p2)
-    st.play2()
+    board = BigBoard(p1, p2)
+    board.train(10000)
+    board.play()
+    

@@ -53,10 +53,11 @@ class State:
         # no available positions
         if len(self.availablePositions()) == 0:
             self.isEnd = True
-            return 0
+            return 2
+        
         # not end
         self.isEnd = False
-        return None
+        return 0
 
     def availablePositions(self):
         positions = []
@@ -66,8 +67,8 @@ class State:
                     positions.append((i, j))  # need to be tuple
         return positions
 
-    def updateState(self, position):
-        self.board[position] = self.playerSymbol
+    def updateState(self, position, player):
+        self.board[position] = player
         # switch to another player
         self.playerSymbol = -1 if self.playerSymbol == 1 else 1
 
@@ -79,10 +80,10 @@ class State:
             self.p1.feedReward(1)
             self.p2.feedReward(0)
         elif result == -1:
-            self.p1.feedReward(0)
+            self.p1.feedReward(-1)
             self.p2.feedReward(1)
         else:
-            self.p1.feedReward(0.1)
+            self.p1.feedReward(0.2)
             self.p2.feedReward(0.5)
 
     # board reset
@@ -92,7 +93,7 @@ class State:
         self.isEnd = False
         self.playerSymbol = 1
 
-    def play(self, rounds=100):
+    def train(self, p2, rounds=100):
         for i in range(rounds):
             if i % 1000 == 0:
                 print("Rounds {}".format(i))
@@ -101,7 +102,7 @@ class State:
                 positions = self.availablePositions()
                 p1_action = self.p1.chooseAction(positions, self.board, self.playerSymbol)
                 # take action and upate board state
-                self.updateState(p1_action)
+                self.updateState(p1_action, self.playerSymbol)
                 board_hash = self.getHash()
                 self.p1.addState(board_hash)
                 # check board status if it is end
@@ -112,17 +113,17 @@ class State:
                     # ended with p1 either win or draw
                     self.giveReward()
                     self.p1.reset()
-                    self.p2.reset()
+                    p2.reset()
                     self.reset()
                     break
 
                 else:
                     # Player 2
                     positions = self.availablePositions()
-                    p2_action = self.p2.chooseAction(positions, self.board, self.playerSymbol)
-                    self.updateState(p2_action)
+                    p2_action = p2.chooseAction(positions, self.board, self.playerSymbol)
+                    self.updateState(p2_action, self.playerSymbol)
                     board_hash = self.getHash()
-                    self.p2.addState(board_hash)
+                    p2.addState(board_hash)
 
                     win = self.winner()
                     if win is not None:
@@ -130,45 +131,49 @@ class State:
                         # ended with p2 either win or draw
                         self.giveReward()
                         self.p1.reset()
-                        self.p2.reset()
+                        p2.reset()
                         self.reset()
                         break
 
     # play with human
-    def play2(self):
-        while not self.isEnd:
+    def play2(self, player):
+        if(player == 1):
             # Player 1
             positions = self.availablePositions()
-            p1_action = self.p1.chooseAction(positions, self.board, self.playerSymbol)
+            p1_action = self.p1.chooseAction(positions, self.board, player)
             # take action and upate board state
-            self.updateState(p1_action)
+            self.updateState(p1_action, player)
             self.showBoard()
             # check board status if it is end
             win = self.winner()
             if win is not None:
-                if win == 1:
-                    print(self.p1.name, "wins!")
-                else:
-                    print("tie!")
-                self.reset()
-                break
+                if win == -1:
+                    return -1 
+                elif win == 2:
+                    return 2 
+                elif win == 1:
+                    return 1
+                else: 
+                    return 0
 
-            else:
-                # Player 2
-                positions = self.availablePositions()
-                p2_action = self.p2.chooseAction(positions)
+        else:
+            # Player 2
+            positions = self.availablePositions()
+            p2_action = self.p2.chooseAction(positions)
 
-                self.updateState(p2_action)
-                self.showBoard()
-                win = self.winner()
-                if win is not None:
-                    if win == -1:
-                        print(self.p2.name, "wins!")
-                    else:
-                        print("tie!")
-                    self.reset()
-                    break
-
+            self.updateState(p2_action, player)
+            self.showBoard()
+            win = self.winner()
+            if win is not None:
+                if win == -1:
+                    return -1 
+                elif win == 2:
+                    return 2 
+                elif win == 1:
+                    return 1
+                else: 
+                    return 0
+                
     def showBoard(self):
         # p1: x  p2: o
         for i in range(0, BOARD_ROWS):
